@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Add new words!</title>
+        <meta name="viewport" content="width=device-width"/>
+    </head>
+    <body>
+        You can add new words and their tranlations.
+        You can add more translation for word separated with a comma.
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:column>
+                    Source: <h:inputText value="#{addBean.newSource}" />
+                </h:column>
+                <h:column>
+                    Translations: <h:inputText value="#{addBean.newTransl}" />
+                </h:column>    
+            </h:panelGrid>
+            <h:commandButton value="Add" action="#{addBean.add()}"/>
+        </h:form>
+        If you leave the input field empty the word will be removed!
+        <h:form id="modifyWord">
+            <h:panelGrid columns="2">
+                <h:column id="word">
+                Select a word to modify: 
+                </h:column>
+                <h:column id="wordsources">
+                    <h:selectOneMenu value="#{modifyBean.modifiedWord}">
+                        <f:selectItems   value="#{modifyBean.wordsources}"/>
+                    </h:selectOneMenu>
+                </h:column>
+            </h:panelGrid>
+            <h:inputText value="#{modifyBean.newTranslations}" />
+            <h:commandButton value="Modify" action="#{modifyBean.modify()}"/>
+            <br />
+            <h:commandButton value="Back" action="menu"/>
+        </h:form>
+    </body>
+</html>
