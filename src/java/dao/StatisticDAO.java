@@ -44,10 +44,9 @@ public class StatisticDAO {
     public GlobalStatistics updateSeen(GlobalStatistics gs) {
         try {
             Object gskey = getGSKey(gs);
-            gs = em.getReference(GlobalStatistics.class, gskey);
-            em.remove(gs);
+            gs = em.find(GlobalStatistics.class, gskey);
             gs.incSeen();
-            em.persist(gs);
+            em.merge(gs);
             return gs;
         } catch (Exception ex) {
             throw new DAOException();
@@ -57,10 +56,9 @@ public class StatisticDAO {
     public GlobalStatistics updateCorrect(GlobalStatistics gs) {
         try {
             Object gskey = getGSKey(gs);
-            gs = em.getReference(GlobalStatistics.class, gskey);
-            em.remove(gs);
+            gs = em.find(GlobalStatistics.class, gskey);
             gs.incCorrect();
-            em.persist(gs);
+            em.merge(gs);
             return gs;
         } catch (Exception ex) {
             throw new DAOException();

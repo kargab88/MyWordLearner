@@ -191,7 +191,6 @@ public class LearnBean implements Serializable {
             word = findWord();
             guess = null;
             return "learn";
-        
     }
 
 }

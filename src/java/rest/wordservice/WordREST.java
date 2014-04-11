@@ -69,7 +69,7 @@ public class WordREST {
     @PUT
     public void update(NewWord nw) {
         Word w = new Word(nw.getSource(),nw.getTrans());
-        wordDao.merge(w);
+        //wordDao.merge(w);
     }
 
     @DELETE

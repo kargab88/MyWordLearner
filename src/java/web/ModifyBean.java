@@ -70,7 +70,7 @@ public class ModifyBean implements Serializable {
         this.newTranslations = newTranslations;
     }
 
-    public List<String> setTrans() {
+    public List<String> transToList() {
         ArrayList<String> translations = new ArrayList<>();
         translations.addAll(Arrays.asList(newTranslations.split(",")));
         return translations;
@@ -84,7 +84,7 @@ public class ModifyBean implements Serializable {
             return null;
         }
         else{
-            wordService.updateTranslations(setTrans(), w);
+            wordService.updateTranslations(transToList(), w);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Word succesfully updated!"));
             return null;
         }

@@ -46,8 +46,8 @@ public class WordService {
         wordDao.removeById(id);
     }
     
-    public void merge(Word word){
-        wordDao.merge(word);
+    public void merge(Word word, List<String> translations){
+        wordDao.merge(word, translations);
     }
     
     public Word findBySource(String source){

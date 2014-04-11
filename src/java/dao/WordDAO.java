@@ -131,24 +131,26 @@ public class WordDAO {
     }
     
 
-    public void merge(Word word) {
+    public void merge(Word word, List<String> translations) {
         try{
             Long id = word.getId();
-            word = em.getReference(Word.class, id);
+            word = em.find(Word.class, id);
+            word.setTrans(translations);
             em.merge(word);
+            em.flush();
         }
         catch(Exception ex){
             throw new DAOException();
         }
     }
     
-    public void updateTranslations(List<String> newTranslations, Word word){
+    public void updateTranslations(List<String> translations, Word word){
         try {
             Long id = word.getId();
-            word = em.getReference(Word.class, id);
-            em.remove(word);
-            word.setTrans(newTranslations);
-            em.persist(word);
+            word = em.find(Word.class, id);
+            word.setTrans(translations);
+            em.merge(word);
+            em.flush();
         } catch (Exception ex) {
             throw new DAOException();
         }
