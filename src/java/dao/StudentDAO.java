@@ -56,10 +56,9 @@ public class StudentDAO {
     public Student updateSeen(Student student) {
         try {
             Long id = student.getId();
-            student = em.getReference(Student.class, id);
-            em.remove(student);
+            student = em.find(Student.class, id);
             student.incSeen();
-            em.persist(student);
+            em.merge(student);
             return student;
         } catch (Exception ex) {
             throw new DAOException();
@@ -69,10 +68,9 @@ public class StudentDAO {
     public Student updateCorrect(Student student) {
         try {
             Long id = student.getId();
-            student = em.getReference(Student.class, id);
-            em.remove(student);
+            student = em.find(Student.class, id);
             student.incCorrect();
-            em.persist(student);
+            em.merge(student);
             return student;
         } catch (Exception ex) {
             throw new DAOException();

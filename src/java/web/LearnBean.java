@@ -33,6 +33,7 @@ public class LearnBean implements Serializable {
     private GlobalStatistics gs;
     private SessionStatistics ss;
     private ArrayList list = new ArrayList();
+    private boolean next = true;
 
     @Inject
     UserSession us;
@@ -137,10 +138,21 @@ public class LearnBean implements Serializable {
         this.list = list;
     }
 
-    public String guess() {
+    public boolean isNext() {
+        return next;
+    }
 
-        List<String> translations = word.getTrans();
+    public void setNext(boolean next) {
+        this.next = next;
+    }
+    
+    public String guess() {
         
+        List<String> translations = word.getTrans();
+        if(guess.length()==0){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Please type a word!"));
+            return null;
+        }
         if (translations.contains(guess)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("good"));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Translations: " + translations));
@@ -157,7 +169,7 @@ public class LearnBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Translations: " + translations));
             wordService.setPriority(word, 1);
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Please press the next button!"));
+        next = false;
         return null;
     }
 
@@ -190,6 +202,7 @@ public class LearnBean implements Serializable {
     public String nextWord() {
             word = findWord();
             guess = null;
+            next = true;
             return "learn";
     }
 

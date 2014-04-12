@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest.wordservice;
 
 import dao.WordDAO;
 import entity.Word;
+import java.util.ArrayList;
 import java.util.List;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -67,9 +65,14 @@ public class WordREST {
     }
     
     @PUT
-    public void update(NewWord nw) {
-        Word w = new Word(nw.getSource(),nw.getTrans());
-        //wordDao.merge(w);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void update(JsonArray translations) {
+        Word w = wordDao.findBySource(source);
+        List<String> list = new ArrayList<>();
+        for (JsonValue jsonvalue : translations) {
+            list.add(jsonvalue.toString());
+        }
+        wordDao.updateTranslations(list, w);
     }
 
     @DELETE

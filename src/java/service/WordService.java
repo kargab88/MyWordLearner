@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package service;
 
 import dao.WordDAO;
@@ -46,8 +40,8 @@ public class WordService {
         wordDao.removeById(id);
     }
     
-    public void merge(Word word, List<String> translations){
-        wordDao.merge(word, translations);
+    public void update(Word word){
+        wordDao.update(word);
     }
     
     public Word findBySource(String source){

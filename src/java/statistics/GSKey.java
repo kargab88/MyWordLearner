@@ -1,11 +1,7 @@
 package statistics;
 
-import entity.Student;
-import entity.Word;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
-import javax.persistence.Embeddable;
 
 /**
  *

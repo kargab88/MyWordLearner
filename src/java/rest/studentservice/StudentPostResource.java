@@ -31,6 +31,10 @@ public class StudentPostResource {
     public String getUsername() {
         return student.getUsername();
     }
+    
+    public void setUsername(String username) {
+        student.setUsername(username);
+    }
 
     public Student getStudent() {
         return student;

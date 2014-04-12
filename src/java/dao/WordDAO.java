@@ -11,11 +11,9 @@ import exceptions.DAOException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.FetchType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Root;
 
 /**
@@ -70,10 +68,9 @@ public class WordDAO {
     public Word updateSeen(Word word) {
         try {
             Long id = word.getId();
-            word = em.getReference(Word.class, id);
-            em.remove(word);
+            word = em.find(Word.class, id);
             word.incSeen();
-            em.persist(word);
+            em.merge(word);
             return word;
         } catch (Exception ex) {
             throw new DAOException();
@@ -83,10 +80,9 @@ public class WordDAO {
     public Word updateCorrect(Word word) {
         try {
             Long id = word.getId();
-            word = em.getReference(Word.class, id);
-            em.remove(word);
+            word = em.find(Word.class, id);
             word.incCorrect();
-            em.persist(word);
+            em.merge(word);
             return word;
         } catch (Exception ex) {
             throw new DAOException();
@@ -131,11 +127,10 @@ public class WordDAO {
     }
     
 
-    public void merge(Word word, List<String> translations) {
+    public void update(Word word) {
         try{
             Long id = word.getId();
             word = em.find(Word.class, id);
-            word.setTrans(translations);
             em.merge(word);
             em.flush();
         }
